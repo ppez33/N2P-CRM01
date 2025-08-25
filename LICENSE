@@ -1,0 +1,209 @@
+# N2P-CRM01 Commercial Software License
+
+**Copyright (c) 2025 Net2Point Engineering Team**  
+**All Rights Reserved**
+
+---
+
+## **Commercial License Agreement**
+
+This software and associated documentation files (the "Software") are proprietary and confidential to Net2Point Engineering Team ("Licensor"). This Commercial License Agreement ("Agreement") grants you ("Licensee") certain limited rights to use the Software subject to the terms and conditions set forth below.
+
+### **1. Grant of License**
+
+Subject to the terms of this Agreement and payment of applicable license fees, Licensor grants Licensee a non-exclusive, non-transferable license to:
+
+- **Use** the Software for commercial purposes within your organization
+- **Install** the Software on your designated servers and systems
+- **Modify** configuration files and settings for your specific needs
+- **Integrate** the Software with your existing systems and workflows
+
+### **2. License Tiers**
+
+#### **2.1 Starter License - $99 USD/month**
+- Up to 500 active customers
+- Basic CRM functionality
+- Standard support (business hours)
+- Email support only
+
+#### **2.2 Professional License - $299 USD/month**
+- Up to 2,000 active customers
+- Full CRM + Advanced features
+- AI monitoring and predictions
+- Priority support (24/7)
+- Phone and email support
+
+#### **2.3 Enterprise License - $799 USD/month**
+- Unlimited customers
+- All features included
+- Custom integrations
+- Dedicated support manager
+- On-site support available
+- SLA guarantees
+
+#### **2.4 White-label License - Custom Pricing**
+- Remove branding
+- Custom UI/UX modifications
+- Source code access (limited)
+- Custom development services
+- Enterprise support included
+
+### **3. Trial Period**
+
+Licensor offers a **30-day free trial** with full functionality access. No credit card required. Trial automatically expires without charges unless upgraded to a paid license.
+
+### **4. Restrictions**
+
+Licensee shall NOT:
+
+- **Distribute, sublicense, or transfer** the Software to any third party
+- **Reverse engineer, decompile, or disassemble** the Software
+- **Remove or modify** copyright notices, logos, or licensing information
+- **Use** the Software to compete with Licensor's business
+- **Share login credentials** with unauthorized users
+- **Resell or redistribute** the Software without explicit written permission
+
+### **5. Intellectual Property**
+
+The Software, including all source code, documentation, trademarks, and related materials, remains the exclusive property of Licensor. This Agreement does not transfer any ownership rights to Licensee.
+
+### **6. Support and Maintenance**
+
+- **Updates and patches** are included with active licenses
+- **Technical support** is provided according to license tier
+- **Feature requests** are considered based on license level
+- **Customization services** available at additional cost
+
+### **7. Service Level Agreement (SLA)**
+
+#### **7.1 Uptime Guarantee**
+- **99.9% uptime** for Professional and Enterprise licenses
+- **99.5% uptime** for Starter licenses
+- **Credits** provided for downtime exceeding SLA
+
+#### **7.2 Support Response Times**
+- **Critical Issues:** 2 hours (Enterprise), 4 hours (Professional), 24 hours (Starter)
+- **Standard Issues:** 8 hours (Enterprise), 24 hours (Professional), 48 hours (Starter)
+
+### **8. Data and Privacy**
+
+- **Customer data** remains property of Licensee
+- **Data backup** and recovery services included
+- **GDPR and privacy compliance** features available
+- **Data export** tools provided for license termination
+
+### **9. Payment Terms**
+
+- **Monthly billing** in advance
+- **Annual discounts** available (2 months free)
+- **Automatic renewal** unless cancelled 30 days prior
+- **Late payment** may result in service suspension
+
+### **10. Warranty Disclaimer**
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. LICENSOR DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+### **11. Limitation of Liability**
+
+IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF OR IN CONNECTION WITH THE USE OF THE SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+### **12. Termination**
+
+This Agreement terminates automatically upon:
+- Non-payment of license fees
+- Material breach of Agreement terms
+- Violation of usage restrictions
+
+Upon termination:
+- All rights to use Software cease immediately
+- Licensee must cease all use and delete all copies
+- Data export period of 30 days provided
+
+### **13. Governing Law**
+
+This Agreement is governed by the laws of Mexico and the State of Quintana Roo. Any disputes shall be resolved in the courts of Cancún, Quintana Roo, Mexico.
+
+### **14. Contact Information**
+
+**Net2Point Engineering Team**  
+📧 Email: licensing@net2point.com  
+📞 Phone: +52 998 456 7890  
+🌐 Website: https://net2point.com  
+📍 Address: Cancún, Quintana Roo, México  
+
+---
+
+## **Open Source Components**
+
+This Software incorporates certain open source components, each subject to their respective licenses:
+
+- **FastAPI** - MIT License
+- **React** - MIT License
+- **MongoDB** - Server Side Public License (SSPL)
+- **Redis** - BSD License
+- **Docker** - Apache License 2.0
+- **Nginx** - BSD License
+
+Full license texts for these components are available in the `/licenses/` directory.
+
+---
+
+## **Acceptable Use Policy**
+
+### **Permitted Uses:**
+✅ ISP/TSP business management  
+✅ Customer relationship management  
+✅ Network monitoring and optimization  
+✅ Billing and invoicing  
+✅ Internal business operations  
+
+### **Prohibited Uses:**
+❌ Illegal activities or fraud  
+❌ Spamming or unsolicited communications  
+❌ Malware distribution  
+❌ Competitive intelligence gathering  
+❌ Circumventing security measures  
+
+---
+
+## **Privacy and Data Protection**
+
+Net2Point is committed to protecting your privacy and data:
+
+- **Data Processing:** Only for providing Software functionality
+- **Data Storage:** Secure, encrypted, geographically distributed
+- **Data Access:** Limited to authorized personnel only
+- **Data Retention:** According to your settings and legal requirements
+- **Data Portability:** Export tools provided
+
+### **Compliance:**
+- 🇲🇽 **Mexican Data Protection Law** (LFPDPPP)
+- 🇪🇺 **General Data Protection Regulation** (GDPR)
+- 🇺🇸 **California Consumer Privacy Act** (CCPA)
+
+---
+
+## **Third-Party Integrations**
+
+This Software may integrate with third-party services:
+
+- **Mikrotik RouterOS** - Network management
+- **Google Maps/Earth** - Geographic information
+- **Powerchat/WhatsApp** - Communications
+- **Bequant** - QoE optimization
+- **Payment processors** - Billing services
+
+Each integration is subject to the respective service's terms of use.
+
+---
+
+**By installing, accessing, or using this Software, you acknowledge that you have read this Agreement, understand it, and agree to be bound by its terms and conditions.**
+
+**Last Updated:** January 2025  
+**Version:** 1.0.0
+
+---
+
+**🚀 Transform your ISP with N2P-CRM01!**
+
+For questions about licensing, please contact us at licensing@net2point.com or visit https://net2point.com/pricing

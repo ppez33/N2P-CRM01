@@ -1,0 +1,364 @@
+# =================================================================
+# N2P-CRM01 - Git Ignore Configuration
+# =================================================================
+
+# Environment and Configuration Files
+.env
+.env.local
+.env.production
+.env.development
+config.ini
+admin_credentials.txt
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+database.sqlite
+db.sqlite3
+
+# Logs and Runtime Data
+logs/
+*.log
+*.log.*
+log-*.txt
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime and Process Files
+*.pid
+*.seed
+*.pid.lock
+pids/
+lib-cov/
+coverage/
+.coverage
+.nyc_output
+.grunt
+.lock-wscript
+
+# Node.js Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log*
+
+# Python Virtual Environments and Dependencies
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# PyCharm and IDE Files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Docker Files (keep docker-compose.yml)
+.dockerignore
+docker-compose.override.yml
+Dockerfile.local
+
+# Build and Distribution
+build/
+dist/
+*.egg-info/
+.webpack/
+.cache/
+
+# Testing
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+htmlcov/
+.testmondata
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*.tmp
+backup/
+backups/
+*.dump
+*.sql
+
+# Upload and Media Files
+uploads/
+media/
+static/media/
+user_uploads/
+customer_files/
+invoices/generated/
+contracts/signed/
+
+# Temporary Files
+tmp/
+temp/
+.tmp/
+.cache/
+*.temp
+
+# SSL Certificates and Keys
+*.pem
+*.key
+*.crt
+*.csr
+*.cert
+*.p12
+*.pfx
+ssl/
+certs/
+certificates/
+
+# API Keys and Secrets
+secrets/
+keys/
+tokens/
+credentials/
+*.secret
+
+# Monitoring and Analytics
+.prometheus/
+grafana_data/
+monitoring/data/
+
+# Database Dumps and Migrations
+*.dump
+*.sql
+migrations/versions/
+alembic/versions/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Network Equipment Configs (SENSITIVE!)
+mikrotik/
+routers/configs/
+switches/configs/
+*.rsc
+*.backup
+*.cfg
+
+# Customer Data (PROTECTED!)
+customer_data/
+client_files/
+personal_info/
+contracts/
+invoices/personal/
+
+# AI/ML Models and Training Data
+models/
+*.pkl
+*.model
+*.h5
+training_data/
+datasets/
+*.csv
+*.json
+data/raw/
+data/processed/
+
+# Monitoring Data
+prometheus_data/
+grafana_data/
+influxdb_data/
+elasticsearch_data/
+
+# Docker Volumes
+docker/data/
+volumes/
+
+# Generated Documentation
+docs/_build/
+docs/build/
+site/
+
+# Compiled Static Assets
+frontend/build/
+frontend/dist/
+static/build/
+assets/build/
+
+# Package Files
+*.tar.gz
+*.tgz
+*.zip
+*.rar
+*.7z
+
+# Local Configuration Overrides
+local_settings.py
+local.env
+dev.env
+prod.env
+
+# Deployment Scripts (may contain secrets)
+deploy.sh
+deploy.bat
+production_deploy.sh
+
+# Database Migrations (auto-generated)
+migrations/env.py
+alembic.ini
+
+# Cache Directories
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.vuepress/dist
+
+# Temporary IDE Files
+*.tmp
+*.temp
+*.cache
+
+# System Files
+System Volume Information/
+.Spotlight-V100/
+.fseventsd/
+
+# Custom Application Directories
+custom_modules/
+local_extensions/
+custom_integrations/
+
+# =================================================================
+# IMPORTANT SECURITY NOTE:
+# =================================================================
+# This .gitignore is designed to prevent sensitive information
+# from being committed to version control, including:
+# - API keys and secrets
+# - Customer data
+# - Database credentials
+# - SSL certificates
+# - Network equipment configurations
+# - Personal information
+# 
+# Always review commits to ensure no sensitive data is included!
+# =================================================================

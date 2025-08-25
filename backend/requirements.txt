@@ -1,0 +1,179 @@
+# =================================================================
+# N2P-CRM01 Backend Dependencies
+# Python 3.11+ Required
+# =================================================================
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+gunicorn==21.2.0
+python-multipart==0.0.6
+
+# Database & ORM
+motor==3.3.2                    # MongoDB async driver
+pymongo==4.6.0                  # MongoDB driver
+sqlalchemy==2.0.23              # SQL ORM
+asyncpg==0.29.0                 # PostgreSQL async driver
+psycopg2-binary==2.9.9          # PostgreSQL driver
+alembic==1.12.1                 # Database migrations
+
+# Redis & Caching
+redis[hiredis]==5.0.1            # Redis client with performance
+redis-py-cluster==2.1.3         # Redis cluster support
+
+# Task Queue
+celery[redis]==5.3.4             # Task queue
+flower==2.0.1                    # Celery monitoring
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0 # JWT tokens
+passlib[bcrypt]==1.7.4           # Password hashing
+python-multipart==0.0.6          # Form data parsing
+cryptography==41.0.7             # Encryption utilities
+
+# HTTP Client & External APIs
+httpx==0.25.2                    # Async HTTP client
+aiohttp==3.9.1                   # Alternative async HTTP client
+requests==2.31.0                 # Sync HTTP client (fallback)
+
+# Data Validation & Serialization
+pydantic==2.5.0                  # Data validation
+pydantic-settings==2.1.0         # Settings management
+email-validator==2.1.0           # Email validation
+
+# Date & Time
+python-dateutil==2.8.2           # Date utilities
+pytz==2023.3                     # Timezone support
+
+# Configuration & Environment
+python-dotenv==1.0.0             # Environment variables
+dynaconf==3.2.4                  # Configuration management
+
+# Logging & Monitoring
+structlog==23.2.0                # Structured logging
+sentry-sdk[fastapi]==1.38.0      # Error tracking
+prometheus-client==0.19.0        # Metrics collection
+
+# AI & Machine Learning
+scikit-learn==1.3.2              # Machine learning
+pandas==2.1.4                    # Data analysis
+numpy==1.25.2                    # Numerical computing
+scipy==1.11.4                    # Scientific computing
+joblib==1.3.2                    # ML model persistence
+
+# Network & Mikrotik
+paramiko==3.4.0                  # SSH client
+netmiko==4.2.0                   # Network device automation
+librouteros==3.2.1               # Mikrotik API client
+scapy==2.5.0                     # Network packet manipulation
+
+# GIS & Mapping
+geopy==2.4.0                     # Geocoding
+shapely==2.0.2                   # Geometric operations
+pyproj==3.6.1                    # Coordinate transformations
+
+# File Processing
+openpyxl==3.1.2                  # Excel files
+python-docx==1.1.0               # Word documents
+PyPDF2==3.0.1                    # PDF processing
+Pillow==10.1.0                   # Image processing
+
+# Email & Communications
+aiosmtplib==3.0.1                # Async SMTP client
+jinja2==3.1.2                    # Template engine for emails
+markupsafe==2.1.3                # Safe string handling
+
+# Data Processing & Utilities
+orjson==3.9.10                   # Fast JSON serialization
+xmltodict==0.13.0                # XML to dict conversion
+python-slugify==8.0.1            # URL-safe string slugs
+phonenumbers==8.13.26            # Phone number validation
+
+# Billing & Payments
+stripe==7.8.0                    # Stripe payments
+paypalrestsdk==1.13.3            # PayPal payments
+
+# Mexican Fiscal (CFDI)
+xmlsec==1.3.13                   # XML digital signatures
+lxml==4.9.3                      # XML processing
+pyOpenSSL==23.3.0                # SSL/TLS support
+
+# Development & Testing
+pytest==7.4.3                    # Testing framework
+pytest-asyncio==0.21.1           # Async testing
+pytest-cov==4.1.0                # Coverage reporting
+pytest-mock==3.12.0              # Mocking utilities
+httpx==0.25.2                    # Testing HTTP requests
+faker==20.1.0                    # Fake data generation
+
+# Code Quality
+black==23.11.0                   # Code formatting
+isort==5.12.0                    # Import sorting
+flake8==6.1.0                    # Linting
+mypy==1.7.1                      # Type checking
+pre-commit==3.5.0                # Git hooks
+
+# Performance & Profiling
+py-spy==0.3.14                   # Performance profiling
+memory-profiler==0.61.0          # Memory usage profiling
+
+# Backup & Storage
+boto3==1.34.0                    # AWS S3 client
+azure-storage-blob==12.19.0      # Azure Blob storage
+google-cloud-storage==2.10.0     # Google Cloud storage
+
+# WebSocket Support (for real-time features)
+websockets==12.0                 # WebSocket support
+python-socketio==5.10.0          # Socket.IO support
+
+# Additional Utilities
+click==8.1.7                     # CLI framework
+rich==13.7.0                     # Rich terminal output
+tqdm==4.66.1                     # Progress bars
+schedule==1.2.0                  # Job scheduling
+
+# Production Dependencies
+psutil==5.9.6                    # System monitoring
+setproctitle==1.3.3              # Process title setting
+
+# Optional: OpenAI Integration
+openai==1.3.8                    # OpenAI API client
+
+# Optional: Advanced Analytics
+plotly==5.17.0                   # Interactive plotting
+dash==2.14.2                     # Web dashboards
+
+# =================================================================
+# Development-only dependencies (install with: pip install -e .[dev])
+# =================================================================
+
+[dev]
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+black==23.11.0
+isort==5.12.0
+flake8==6.1.0
+mypy==1.7.1
+pre-commit==3.5.0
+jupyter==1.0.0
+ipython==8.18.1
+sphinx==7.1.2
+sphinx-rtd-theme==1.3.0
+
+# =================================================================
+# Installation Instructions:
+# =================================================================
+# Production: pip install -r requirements.txt
+# Development: pip install -r requirements.txt && pip install -e .[dev]
+# Docker: Requirements are automatically installed in container
+# =================================================================
+
+# =================================================================
+# Python Version Compatibility:
+# =================================================================
+# Python 3.11+ required for optimal performance
+# Python 3.10 minimum (some features may be limited)
+# Python 3.9 not recommended (compatibility issues)
+# =================================================================

@@ -1,0 +1,303 @@
+version: '3.8'
+
+services:
+  # Frontend - React Application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+    container_name: n2p-frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/ssl:/etc/nginx/ssl:ro
+      - static_files:/app/static
+    depends_on:
+      - backend
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+  # Backend - FastAPI Application  
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: n2p-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app
+      - ./static:/app/static
+      - ./logs:/app/logs
+      - static_files:/app/static
+    depends_on:
+      - mongodb
+      - redis
+      - postgres
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=${DATABASE_URL:-mongodb://mongodb:27017/n2p_crm}
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=${SECRET_KEY}
+      - POWERCHAT_API_KEY=${POWERCHAT_API_KEY}
+      - BEQUANT_API_KEY=${BEQUANT_API_KEY}
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+    env_file:
+      - .env
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    container_name: n2p-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./database/backup:/backup
+      - ./database/seeds:/docker-entrypoint-initdb.d
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER:-n2p_admin}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD:-n2p_secure_password}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE:-n2p_crm}
+    command: mongod --auth --bind_ip_all
+    
+  # PostgreSQL Database (Alternative to MongoDB)
+  postgres:
+    image: postgres:14
+    container_name: n2p-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/backup:/backup
+      - ./database/schemas:/docker-entrypoint-initdb.d
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-n2p_crm}
+      - POSTGRES_USER=${POSTGRES_USER:-n2p_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-n2p_secure_password}
+    profiles:
+      - postgres
+
+  # Redis Cache & Session Store
+  redis:
+    image: redis:7-alpine
+    container_name: n2p-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./config/redis/redis.conf:/etc/redis/redis.conf:ro
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    command: redis-server /etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-n2p_redis_password}
+
+  # Celery Worker for Background Tasks
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: n2p-celery-worker
+    volumes:
+      - ./backend/app:/app
+      - ./logs:/app/logs
+      - static_files:/app/static
+    depends_on:
+      - redis
+      - mongodb
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    command: celery -A app.core.celery worker --loglevel=info
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=${DATABASE_URL:-mongodb://mongodb:27017/n2p_crm}
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=${SECRET_KEY}
+      - POWERCHAT_API_KEY=${POWERCHAT_API_KEY}
+      - BEQUANT_API_KEY=${BEQUANT_API_KEY}
+    env_file:
+      - .env
+
+  # Celery Beat for Scheduled Tasks
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: n2p-celery-beat
+    volumes:
+      - ./backend/app:/app
+      - ./logs:/app/logs
+      - celery_beat_data:/app/celerybeat-schedule
+    depends_on:
+      - redis
+      - mongodb
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    command: celery -A app.core.celery beat --loglevel=info --schedule=/app/celerybeat-schedule/celerybeat-schedule
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=${DATABASE_URL:-mongodb://mongodb:27017/n2p_crm}
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=${SECRET_KEY}
+    env_file:
+      - .env
+
+  # Flower - Celery Monitoring
+  flower:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: n2p-flower
+    ports:
+      - "5555:5555"
+    volumes:
+      - ./backend/app:/app
+    depends_on:
+      - redis
+      - celery-worker
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    command: celery -A app.core.celery flower --port=5555
+    environment:
+      - ENVIRONMENT=production
+      - REDIS_URL=redis://redis:6379
+      - FLOWER_BASIC_AUTH=${FLOWER_USER:-admin}:${FLOWER_PASSWORD:-admin123}
+    env_file:
+      - .env
+    profiles:
+      - monitoring
+
+  # Prometheus - Metrics Collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: n2p-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    profiles:
+      - monitoring
+
+  # Grafana - Metrics Visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: n2p-grafana
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana:/etc/grafana/provisioning
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=${DOMAIN:-localhost}
+    profiles:
+      - monitoring
+
+  # Nginx Proxy Manager (Optional)
+  nginx-proxy:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: n2p-nginx-proxy
+    ports:
+      - "8080:80"
+      - "8443:443"
+      - "8181:81"
+    volumes:
+      - nginx_proxy_data:/data
+      - nginx_proxy_letsencrypt:/etc/letsencrypt
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    environment:
+      - DB_SQLITE_FILE=/data/database.sqlite
+    profiles:
+      - proxy
+
+  # Backup Service
+  backup:
+    build:
+      context: ./scripts/backup
+      dockerfile: Dockerfile
+    container_name: n2p-backup
+    volumes:
+      - mongodb_data:/data/mongodb:ro
+      - postgres_data:/data/postgres:ro
+      - ./database/backup:/backup
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - n2p-network
+    restart: unless-stopped
+    environment:
+      - BACKUP_SCHEDULE=${BACKUP_SCHEDULE:-0 2 * * *}
+      - BACKUP_RETENTION_DAYS=${BACKUP_RETENTION_DAYS:-7}
+      - S3_BUCKET=${S3_BACKUP_BUCKET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    profiles:
+      - backup
+
+# Networks
+networks:
+  n2p-network:
+    driver: bridge
+    name: n2p-network
+
+# Volumes
+volumes:
+  mongodb_data:
+    name: n2p-mongodb-data
+  postgres_data:
+    name: n2p-postgres-data
+  redis_data:
+    name: n2p-redis-data
+  celery_beat_data:
+    name: n2p-celery-beat-data
+  static_files:
+    name: n2p-static-files
+  prometheus_data:
+    name: n2p-prometheus-data
+  grafana_data:
+    name: n2p-grafana-data
+  nginx_proxy_data:
+    name: n2p-nginx-proxy-data
+  nginx_proxy_letsencrypt:
+    name: n2p-nginx-proxy-letsencrypt
